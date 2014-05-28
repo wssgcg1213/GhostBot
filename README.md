@@ -1,8 +1,10 @@
 GhostBot
 ---
 ####A Common Search Engine based On RSS
+####基于RSS的通用搜索引擎
 ---
 The plugin is written by [Zeroling](http://www.zeroling.com).
+
 The plugin allows front-end engineer to add Search Engine to your platform based on rss. Similar but unlike GhostHunter ,there is no need of jQuery or lunr.js.
 
 这个插件不需要任何依赖, 加载方式类似于博客系统Ghost的开源插件[GhostHunter](https://github.com/i11ume/ghostHunter/), 但是不需要 jQuery 和 lunr.js 的支持.
@@ -19,21 +21,18 @@ Load the GhostBot.
 
 ```
 <script src="js/ghostbot.min.js">	
-	
 ```
 
 You need a inputbox that for users inputting the keywords.
 
 ```
 <input type="text" class="search-form-input" placeholder="Search"/>
-
 ```
 
 And a resultbox where result was shown;
 
 ```
 <div class="search-bar-result"></div>
-
 ```
 Config the GhostBot after DOM is loaded totally;
 
@@ -43,7 +42,7 @@ var g = new GhostBot({
 	target: document.querySelector('.search-bar-result'),
 	info_template: "<h4>Find{{amount}}Articles.</h4>",
     result_template: "<a href='{{link}}' class='searchResult'>{{title}}</a>",
-})
+});
 ```
 
 Options
