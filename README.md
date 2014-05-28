@@ -56,3 +56,5 @@ Options
 
 - `optional` result_template: result template, we will use each result to replace {{link}}, {{title}}, {{content}}.   结果模板, {{link}}, {{title}}, {{content}}会被每一条搜索结果替换.
 `default` : `"<a href='{{link}}' class='searchResult'>{{title}}</a>"`
+
+- `optional` rss: the rss address. RSS 的地址. `default`: `/rss`
