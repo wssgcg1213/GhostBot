@@ -1,7 +1,7 @@
 GhostBot
 ---
-####A Common Search Engine based On Ghost API
-####基于Ghost API的通用搜索引擎
+#### A Common Search Engine based On Ghost API
+#### 基于Ghost API的通用搜索引擎
 ---
 The plugin is written by [Zeroling](http://www.zeroling.com).
 Updated by [Luna Shu](https://luna.fancylog.net).
