@@ -1,19 +1,20 @@
 GhostBot
 ---
-####A Common Search Engine based On RSS
-####基于RSS的通用搜索引擎
+#### A Common Search Engine based On Ghost API
+#### 基于Ghost API的通用搜索引擎
 ---
 The plugin is written by [Zeroling](http://www.zeroling.com).
+Updated by [Luna Shu](https://luna.fancylog.net).
 
-The plugin allows front-end engineer to add Search Engine to your platform based on rss. Similar but unlike GhostHunter ,there is no need of jQuery or lunr.js.
+The plugin allows front-end engineer to add Search Engine to your platform based on Ghost API. Similar but unlike GhostHunter ,there is no need of jQuery or lunr.js.
 
-这个插件不需要任何依赖, 加载方式类似于博客系统Ghost的开源插件[GhostHunter](https://github.com/i11ume/ghostHunter/), 但是不需要 jQuery 和 lunr.js 的支持.
+这个插件不需要任何依赖, 加载方式类似于博客系统Ghost的开源插件[GhostHunter](https://github.com/i11ume/ghostHunter/), 但是不需要 jQuery 和 lunr.js 的支持.
 
-通过Ajax读取并解析 rss, 在 Chrome 和 Safari 环境下支持良好, 其他环境未测试.
+通过Ghost API 获取全站文章, 在 Chrome 和 Safari 环境下支持良好, 其他环境未测试.
 
 If you find it useful, it's what I'd like to see.
 
-If you cannot run it properly, or you have any good suggestions, cantact me and maybe I could make it better: <wssgcg1213@qq.com>.
+If you cannot run it properly, or you have any good suggestions, cantact me and maybe I could make it better: <luna_shu@fancylog.net>.
 
 Usage
 ---
@@ -57,4 +58,3 @@ Options
 - `optional` result_template: result template, we will use each result to replace {{link}}, {{title}}, {{content}}.   结果模板, {{link}}, {{title}}, {{content}}会被每一条搜索结果替换.
 `default` : `"<a href='{{link}}' class='searchResult'>{{title}}</a>"`
 
-- `optional` rss: the rss address. RSS 的地址. `default`: `/rss`
