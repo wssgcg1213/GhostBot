@@ -8,7 +8,7 @@ Updated by [Luna Shu](https://luna.fancylog.net).
 
 The plugin allows front-end engineer to add Search Engine to your platform based on Ghost API. Similar but unlike GhostHunter ,there is no need of jQuery or lunr.js.
 
-这个插件不需要任何依赖, 加载方式类似于博客系统Ghost的开源插件[GhostHunter](https://github.com/i11ume/ghostHunter/), 但是不需要  lunr.js 的支持.
+这个插件不需要任何依赖, 加载方式类似于博客系统Ghost的开源插件[GhostHunter](https://github.com/i11ume/ghostHunter/), 但是不需要 jQuery 和 lunr.js 的支持.
 
 通过Ghost API 获取全站文章, 在 Chrome 和 Safari 环境下支持良好, 其他环境未测试.
 
