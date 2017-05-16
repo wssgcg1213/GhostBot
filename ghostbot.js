@@ -10,8 +10,30 @@
  * Original Author Blog: http://www.zeroling.com/
  *
  */
-
-
+function Ajax() {
+  "use strict";
+  var aja = {};
+  aja.tarUrl = '';
+  aja.postString = '';
+  aja.createAjax = function() {
+    var xmlhttp = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+    return xmlhttp;
+  }
+  aja.xhr = aja.createAjax();
+  aja.processHandler = function() {
+    if (aja.xhr.readyState == 4)
+      if (aja.xhr.status == 200)
+        aja.resultHandler(aja.xhr.responseText);
+  }
+  aja.get = function(tarUrl, callbackHandler) {
+    aja.tarUrl = tarUrl;
+    aja.resultHandler = callbackHandler;
+    aja.xhr.onreadystatechange = aja.processHandler;
+    aja.xhr.open('get', aja.tarUrl, true);
+    aja.xhr.send();
+  }
+  return aja;
+}
 var GhostBot = function(options) {
   this.defaults = {
     result_template: "<a href='{{link}}' class='searchResult'>{{title}}</a>",
@@ -29,7 +51,6 @@ GhostBot.prototype.extend = function() {
   }
   return _arg[0];
 }
-
 GhostBot.prototype.init = function(opts) {
   var that = this;
   this.result_template = opts.result_template;
@@ -37,23 +58,21 @@ GhostBot.prototype.init = function(opts) {
   this.target = opts.target;
   this.inputbox = opts.inputbox;
   this.blogData = [];
+  this.ajax = new Ajax();
   this.loadAPI();
 }
-
 GhostBot.prototype.loadAPI = function(){
   if (this.inited) return false;
   var index = this.index;
   var that = this;
   var obj		= {limit: "all",  include: "tags"};
   var maxLength = 120;
-
   var blogData = [];
-
-  $.get(ghost.url.api('posts',obj)).done(function(data){
-    searchData = data.posts;
+  this.ajax.get(ghost.url.api('posts',obj), function(data) {
+    var searchData = JSON.parse(data).posts;
     searchData.forEach(function(arrayItem){
       var tag_arr = arrayItem.tags.map(function(v) {
-        return v.name; // `tag` object has an `name` property which is the value of tag. If you also want other info, check API and get that property
+        return v.name;
       })
       if(arrayItem.meta_description == null) { arrayItem.meta_description = '' };
       var category = tag_arr.join(", ");
@@ -65,27 +84,20 @@ GhostBot.prototype.loadAPI = function(){
         title 		: String(arrayItem.title),
         slug : String(arrayItem.slug),
         url: String(arrayItem.url),
-        // description	: String(arrayItem.meta_description),
         markdown 	: String(arrayItem.markdown),
         pubDate 	: String(arrayItem.created_at.split('T')[0]),
         tag 		: category,
         link 		: String(arrayItem.url),
         description	: String(arrayItem.markdown.substr(0, maxLength)),
         content : arrayItem.markdown
-
       };
       blogData.push(parsedData);
-
     });
     that.items = blogData;
-
     that.inited = true;
     that.listen();
-  });
-
+  })
 }
-
-
 GhostBot.prototype.listen = function() {
   var that = this;
   this.inputbox.onkeyup = function() {
@@ -95,27 +107,22 @@ GhostBot.prototype.listen = function() {
     var info_parsed = that.format(that.info_template, {
       amount: _r.length
     });
-
     var _HTML = info_parsed;
     for (i in _r) _HTML += that.format(that.result_template, _r[i]);
     that.target.innerHTML = _HTML;
   }
 }
-
 GhostBot.prototype.format = function(text, obj) {
   return text.replace(/{{([^{}]*)}}/g, function(a, b) {
     var r = obj[b];
     return typeof r === "string" || typeof r === "number" ? r : a
   })
 }
-
 GhostBot.prototype.search = function(kw) {
   var that = this;
   var _result = [];
   var _reg = new RegExp(kw.toLowerCase());
-
   this.items.forEach(function(i) {
-
     var content = i.markdown;
     var title = i.title;
     var pubDate = i.pubDate,
@@ -133,6 +140,5 @@ GhostBot.prototype.search = function(kw) {
       })
     }
   });
-
   return _result;
 }
